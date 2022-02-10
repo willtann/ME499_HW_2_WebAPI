@@ -27,7 +27,8 @@ def get_current_day(epoch=time.time()):
     :return: UTC date (string) in form 'YYYY-MM-DD...'
     """
     # return the current time since epoch to print the current UTC time
-    return datetime.utcfromtimestamp(epoch).isoformat()  # [1]
+    date = datetime.utcfromtimestamp(epoch).isoformat()  # [1]
+    return date[:10]
 
 
 def query_carbon(iso=get_current_day(), use_cache=True):

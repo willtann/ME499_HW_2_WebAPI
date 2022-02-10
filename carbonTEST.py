@@ -29,12 +29,13 @@ def query_carbon(iso_date=datetime.today().isoformat(), use_cache=True):
     :return:
     """
 
-    if not os.path.isdir('data'):  # Check that directory exists
-        os.mkdir('data')
-        print('Not a directory')
-    carbon_date_known = datetime.strptime('carbon_2019-10-31.json')  # Make string
-    filename = os.path.join('data', 'data/carbon_2019-10-31.json')
-    file_exists = True
+    # # See if directory with carbon intensity data for dates exists
+    # if os.path.isdir('data'):  # [2]
+    #     data_dir = True
+    # else:
+    #     # If directory doesn't exist; make one.
+    #     os.mkdir('data')  # [3]
+    #     data_dir = True
 
     if use_cache and file_exists:
         curr_day = datetime.fromtimestamp().isoformat()
@@ -60,7 +61,7 @@ def plot_carbon():
 
 
 if __name__ == '__main__':
-    get_current_day()
+    print(get_current_day())
     query_carbon()
     """ Testing query carbon """
-    assert isinstance(query_carbon()) == type({}), 'Type is not dictionary'
+    # assert isinstance(query_carbon()) == type({}), 'Type is not dictionary'

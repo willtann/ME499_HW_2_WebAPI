@@ -4,13 +4,15 @@ from datetime import datetime
 # requests if for getting data from the API
 import requests
 import os.path
+import os
+import json
 
 
 """ References
     [1] https://stackoverflow.com/questions/30921399/datetime-fromtimestamp-vs-datetime-utcfromtimestamp-which-one-is-safer-to-use
     [2] https://www.geeksforgeeks.org/python-os-path-isdir-method/
     [3] https://www.geeksforgeeks.org/python-os-mkdir-method/
-    [4]
+    [4] https://www.geeksforgeeks.org/read-json-file-using-python/
     [5]
     [6]
     [7]
@@ -25,9 +27,7 @@ def get_current_day(epoch=time.time()):
     :return: UTC date (string) in form 'YYYY-MM-DD...'
     """
     # return the current time since epoch to print the current UTC time
-    current = datetime.utcfromtimestamp(epoch)  # [1]
-    # return current.isoformat()
-    return current.date()
+    return datetime.utcfromtimestamp(epoch).isoformat()  # [1]
 
 
 def query_carbon(iso=get_current_day(), use_cache=True):
@@ -39,25 +39,38 @@ def query_carbon(iso=get_current_day(), use_cache=True):
             - FALSE, retrieve it and store it
     :return:
     """
-    # See if directory with data exists
-    if not os.path.isdir('data'):  # [2]
-        # If directory doesn't exist; make one.
-        os.mkdir('data')  # [3]
-        data_folder = True
-    # If we have the data folder and use_cache is True
-    if use_cache and data_folder:
 
-    # If use_cache is false we need to retrieve it from the URL and ignore any cache files
-    elif:
-        # Sending request
+    # If use_cache is true
+    if use_cache:
+        try:
+            print('Using cached file to get data')
+            carbon_data = open('data/carbon_%s.json' % iso,'r')
+            iso_data = json.load(carbon_data)  # [4]
+        except FileNotFoundError:
+            print('Psych that file doesnt exist... lets get it from the www')
+            headers = {'Accept': 'application/json'}
+            r = requests.get('https://api.carbonintensity.org.uk/intensity/%s' %iso,
+                         params={}, headers=headers)
+            print(r.status_code)
+            print(r.json())
 
-        # Check if status code from URL is 200
 
-        # If it is not 200 raise exception
-            raise ValueError('Status Code Error: Not 200')
-        # Otherwise, get data from dictionary retrieved from URL
+
+
+    # # If use_cache is false we need to retrieve it from the URL and ignore any cache files
+    # elif:
+    #     # Sending request
+    #
+    #     # Check if status code from URL is 200
+    #
+    #     # If it is not 200 raise exception
+    #     raise Exception
+    #     # Otherwise, get data from dictionary retrieved from URL
 
 
 if __name__ == '__main__':
     print(get_current_day())
+    # print(query_carbon('2019-10-31'))
     print(query_carbon())
+
+

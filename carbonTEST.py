@@ -2,6 +2,7 @@
 import requests
 from datetime import datetime
 import time
+import os.path
 import os
 """ Don't put a request in a loop or website will kick your IP """
 """ Assume all days start at midnight """
@@ -14,8 +15,7 @@ def get_current_day(timestamp=time.time()):
     :param timestamp: number of seconds since 1 January 1970
     :return: UTC date (string)
     """
-    date = datetime.fromtimestamp(timestamp)
-    print(date)
+    return datetime.fromtimestamp(timestamp)
 
 
 def query_carbon(iso_date=datetime.today().isoformat(), use_cache=True):
@@ -33,8 +33,9 @@ def query_carbon(iso_date=datetime.today().isoformat(), use_cache=True):
         os.mkdir('data')
         print('Not a directory')
     carbon_date_known = datetime.strptime('carbon_2019-10-31.json')  # Make string
-    filename = os.path.join('data', 'carbon_2019-10-31.json')
+    filename = os.path.join('data', 'data/carbon_2019-10-31.json')
     file_exists = True
+
     if use_cache and file_exists:
         curr_day = datetime.fromtimestamp().isoformat()
         print('Using cashed file to get data')

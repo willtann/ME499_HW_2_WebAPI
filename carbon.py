@@ -3,12 +3,19 @@ import time
 from datetime import datetime
 # requests if for getting data from the API
 import requests
+import os.path
 
 
-""" Problem 1: Setup """
-""" References:
-    https://stackoverflow.com/questions/30921399/datetime-fromtimestamp-vs-datetime-utcfromtimestamp-which-one-is-safer-to-use
-    
+""" References
+    [1] https://stackoverflow.com/questions/30921399/datetime-fromtimestamp-vs-datetime-utcfromtimestamp-which-one-is-safer-to-use
+    [2] https://www.geeksforgeeks.org/python-os-path-isdir-method/
+    [3] https://www.geeksforgeeks.org/python-os-mkdir-method/
+    [4]
+    [5]
+    [6]
+    [7]
+    [8]
+    [9]
     """
 
 
@@ -18,24 +25,37 @@ def get_current_day(epoch=time.time()):
     :return: UTC date (string) in form 'YYYY-MM-DD...'
     """
     # return the current time since epoch to print the current UTC time
-    # current_time = datetime.datetime.utcfromtimestamp(epoch)
-    # return datetime.datetime.utcfromtimestamp(epoch).strftime('%Y-%m-%d %H:%M:%S')
-    current = datetime.utcfromtimestamp(epoch)
-    return current.isoformat()
+    current = datetime.utcfromtimestamp(epoch)  # [1]
+    # return current.isoformat()
+    return current.date()
 
 
 def query_carbon(iso=get_current_day(), use_cache=True):
     """
-    :param iso: example: 2022-02-07 09:31:26.596621 (str)
-    :param use_cache: Check if data is in json file (boolean)
-        1. File exist?
+    :param iso: example: if not provided in form '2022-02-07 09:31:26.596621 (str)' then retrieve current date
+    :param use_cache: data is in file (boolean)
+        1. Data in file?
             - TRUE, good
-            - FALSE, get it and store it
+            - FALSE, retrieve it and store it
     :return:
     """
-    headers = {'Accept': 'application/json'}
-    r = requests.get('https://api.carbonintensity.org.uk/intensity/date/{date}', params={}, headers=headers)
-    return r.json()
+    # See if directory with data exists
+    if not os.path.isdir('data'):  # [2]
+        # If directory doesn't exist; make one.
+        os.mkdir('data')  # [3]
+        data_folder = True
+    # If we have the data folder and use_cache is True
+    if use_cache and data_folder:
+
+    # If use_cache is false we need to retrieve it from the URL and ignore any cache files
+    elif:
+        # Sending request
+
+        # Check if status code from URL is 200
+
+        # If it is not 200 raise exception
+            raise ValueError('Status Code Error: Not 200')
+        # Otherwise, get data from dictionary retrieved from URL
 
 
 if __name__ == '__main__':

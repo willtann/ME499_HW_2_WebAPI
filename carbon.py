@@ -41,37 +41,31 @@ def query_carbon(iso=get_current_day(), use_cache=True):
     :return:
     """
 
-    # If use_cache is true
     if use_cache:
+        # If use_cache is true
         try:
             print('Using cached file to get data')
             carbon_data = open('data/carbon_%s.json' % iso,'r')
+            # load data for specified date 'iso'
             iso_data = json.load(carbon_data)  # [4]
+            # If use_cache is true, but the cache doesn't exist for 'iso' date get it from the URL
         except FileNotFoundError:
-            print('Psych that file doesnt exist... lets get it from the www')
+            print('No cache for this date, retrieving it from URL and storing into new file')
             headers = {'Accept': 'application/json'}
-            r = requests.get('https://api.carbonintensity.org.uk/intensity/%s' %iso,
-                         params={}, headers=headers)
-            print(r.status_code)
-            print(r.json())
+            # Sending request
+            data_from_url = requests.get('https://api.carbonintensity.org.uk/intensity/%s' % iso, params={}, headers=headers)
+            # Check if status code from URL is 200
+            if not data_from_url.status_code == 200:
+                raise Exception
+            return data_from_url.json()
 
 
+def plot_carbon(iso=get_current_day()):
 
-
-    # # If use_cache is false we need to retrieve it from the URL and ignore any cache files
-    # elif:
-    #     # Sending request
-    #
-    #     # Check if status code from URL is 200
-    #
-    #     # If it is not 200 raise exception
-    #     raise Exception
-    #     # Otherwise, get data from dictionary retrieved from URL
 
 
 if __name__ == '__main__':
     print(get_current_day())
     # print(query_carbon('2019-10-31'))
     print(query_carbon())
-
-
+    print('Testing from windows computer')

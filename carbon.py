@@ -60,9 +60,7 @@ def query_carbon(iso=get_current_day(), use_cache=True):
             return data_from_url.json()
 
 
-def plot_carbon(iso=get_current_day()):
-
-
+# def plot_carbon(iso=get_current_day())
 
 if __name__ == '__main__':
     print(get_current_day())

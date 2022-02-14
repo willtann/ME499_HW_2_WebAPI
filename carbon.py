@@ -91,15 +91,14 @@ def plot_carbon(iso=get_current_day()):
         forecast.append(timeframe['intensity']['forecast'])  # Retrieving forecasted value
         actual.append(timeframe['intensity']['actual'])  # Retrieving actual intensity value
 
-    print(actual)
     plt.plot(t, forecast, label='Predicted Intensity')  # Plot and label for legend
     plt.plot(t, actual, label='Realized Intensity')
     plt.legend()
     plt.show()
 
 
-if __name__ == '__main__':
-    print(get_current_day())
-    plot_carbon('2019-10-31')
-    plot_carbon()
-    plot_carbon('2022-04-15')
+# if __name__ == '__main__':
+#     print(get_current_day())
+#     plot_carbon('2019-10-31')
+#     plot_carbon()
+#     plot_carbon('2022-04-15')

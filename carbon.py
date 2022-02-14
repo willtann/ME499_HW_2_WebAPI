@@ -1,7 +1,6 @@
 #! Users/tannerwilliams/Desktop/ME499/ME499_HW_2_WebAPI
 import time
 from datetime import datetime
-# requests if for getting data from the API
 import requests
 import os.path
 import os
@@ -15,11 +14,6 @@ import numpy
     [2] https://www.geeksforgeeks.org/python-os-path-isdir-method/
     [3] https://www.geeksforgeeks.org/python-os-mkdir-method/
     [4] https://www.geeksforgeeks.org/read-json-file-using-python/
-    [5]
-    [6]
-    [7]
-    [8]
-    [9]
     """
 
 
@@ -58,7 +52,6 @@ def query_carbon(iso=get_current_day(), use_cache=True):
             # Sending request
             url = 'https://api.carbonintensity.org.uk/intensity/date/%s' % iso
             data_from_url = requests.get(url, params={}, headers=headers)
-            print(type(data_from_url))
             # Check if status code from URL is 200
             if not data_from_url.status_code == 200:
                 raise Exception('Bad Request or Internal Server Error')

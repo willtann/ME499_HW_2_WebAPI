@@ -98,8 +98,8 @@ def plot_carbon(iso=get_current_day()):
     plt.show()
 
 
-if __name__ == '__main__':
-#     print(get_current_day())
-#     plot_carbon('2019-10-31')
-    plot_carbon()
-#     plot_carbon('2022-04-15')
+# if __name__ == '__main__':
+# #     print(get_current_day())
+# #     plot_carbon('2019-10-31')
+#     plot_carbon()
+# #     plot_carbon('2022-04-15')
